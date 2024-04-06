@@ -12,6 +12,7 @@ let selectedIndexes = [];
 
 document.addEventListener("mouseup", () => {
     dragging = false;
+    dragSelection.remove();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -99,6 +100,8 @@ function updateSelection(selection, x, y, distance, direction) {
             height += 4.5;
         } else if(direction == 1 || direction == 3) {
             height += 4.75;
+        } else if(direction == 4) {
+            height += 7;
         }
     } 
     selection.style.left = left + "vw";
@@ -112,5 +115,7 @@ function updateSelection(selection, x, y, distance, direction) {
         selection.style.transform = "rotate(-270deg)";
     } else if(direction == 3) {
         selection.style.transform = "rotate(180deg)";
+    } else if(direction == 4) {
+        selection.style.transform = "rotate(-43.5deg)";
     }
 }
