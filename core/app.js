@@ -6,7 +6,8 @@ const selectionColors = ["rgba(255, 0, 0, 0.3)", "rgba(0, 255, 0, 0.3)", "rgba(0
 const board = document.getElementById("board");
 const selections = document.getElementById("selections");
 const wordIndexes = [];
-const words = [];
+let words = [];
+let reversed = [];
 const wordObjects = [];
 let dragging = false;
 let dragStart = 0;
@@ -50,28 +51,83 @@ document.addEventListener("DOMContentLoaded", () => {
     for(let i = 0; i < 100; i++) {
         createLetter(i, alphabet[parseInt(Math.random() * alphabet.length)]);
     }
-    let word = "Fotel";
-    let indexes = [];
-    for(let i = 0; i < word.length; i++) {
-        createLetter(i, word.charAt(i));
-        indexes[indexes.length] = i;
-    }
-    wordIndexes[0] = indexes;
-    words[0] = "Fotel";
-    word = "Falafel";
-    indexes = [];
-    for(let i = 0, j = 0; i < word.length; i++, j += 10) {
-        createLetter(j, word.charAt(i));
-        indexes[indexes.length] = j;
-    }
-    wordIndexes[1] = indexes;
-    words[1] = "Falafel";
+
+    words = ["Fotel", "Falafel", "Test", "Tama", "Bober", "Polska", "Diabel", "Drzwi", "Cyfra", "Litera"];
+    
     for(let i = 0; i < words.length; i++) {
+        let rdm = Math.random() * 100;
+        if(rdm < 25) {
+            reversed[i] = true;
+            continue;
+        }
+        reversed[i] = false;
+    }
+
+    let retries = 0;
+    for(let i = 0; i < words.length; i++) {
+        if(retries > 128) {
+            words[i] = null;
+            retries = 0;
+            continue;
+        }
+        let indexes = [];
+        let startIndex = parseInt(Math.random() * 100);
+        if(startIndex + words[i].length >= 100) {
+            i--;
+            retries++;
+            continue;
+        }
+        if(startIndex < 10) {
+            if(startIndex + words[i].length > 10) {
+                i--;
+                continue;
+            }
+        }
+        if(startIndex + words[i].length >= parseInt((parseInt((startIndex + "").charAt(0)) + 1) + "0")) {
+            i--;
+            retries++;
+            continue;
+        }
+        for(let j = 0; j < words[i].length; j++) {
+            indexes[indexes.length] = startIndex + j;
+        }
+        let conflict = false;
+        for(let j = 0; j < wordIndexes.length; j++) {
+            for(let k = 0; k < indexes.length; k++) {
+                if(wordIndexes[j].includes(indexes[k])) {
+                    conflict = true;
+                    break;
+                }
+            }
+            if(conflict) {
+                break;
+            }
+        }
+        if(conflict) {
+            i--;
+            retries++;
+            continue;
+        }
+        if(reversed[i]) {
+            indexes.reverse();
+        }
+        for(let j = 0; j < indexes.length; j++) {
+            createLetter(indexes[j], words[i].charAt(j));
+        }
+        console.log(indexes);
+        wordIndexes[i] = indexes;
+    }
+
+    for(let i = 0; i < words.length; i++) {
+        if(words[i] == null) {
+            continue;
+        }
         let newElement = document.createElement("div");
         newElement.innerHTML = "<span>" + words[i] + "</span>";
         document.getElementById("available-words").appendChild(newElement);
         wordObjects[i] = newElement;
     }
+
 });
 
 function createLetter(index, letter) {
