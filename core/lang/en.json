@@ -1,5 +1,7 @@
 {
     "title": "WordSearch",
+    "congratulations": "Congratulations!",
+    "restart": "Restart",
     "packages": [
         {
             "id": 0,

@@ -1,5 +1,7 @@
 {
     "title": "Szukanie słów",
+    "congratulations": "Gratulacje!",
+    "restart": "Zacznij ponownie",
     "packages": [
         {
             "id": 0,

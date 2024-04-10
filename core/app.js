@@ -14,6 +14,7 @@ let dragStart = 0;
 let dragSelection;
 let dragDirection = 0;
 let selectedIndexes = [];
+let completed = 0;
 
 document.addEventListener("mouseup", () => {
     if(!dragging) {
@@ -35,6 +36,16 @@ document.addEventListener("mouseup", () => {
         if(found) {
             wordIndexes[i] = [];
             wordObjects[i].children[0].style.textDecorationLine = "line-through";
+            completed++;
+            let c = 0;
+            for(let i = 0; i < words.length; i++) {
+                if(words[i] != null) {
+                    c++;
+                }
+            }
+            if(completed >= c) {
+                document.getElementById("end").style.display = "flex";
+            }
             break;
         }
     }
@@ -52,7 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
         createLetter(i, alphabet[parseInt(Math.random() * alphabet.length)]);
     }
 
-    words = ["Fotel", "Falafel", "Test", "Tama", "Bober", "Polska", "Diabel", "Drzwi", "Cyfra", "Litera"];
+    document.getElementById("end").children[1].addEventListener("click", () => {
+        window.location.href = "./";
+    });
+
+    words = ["Fotel", "Falafel", "Test", "Tama", "Bober", "Polska", "Diabel", "Drzwi", "Cyfra", "Litera", "Bekas", "Ksiazka", "Domek", "Samochod", "Brbr", "Bomba"];
     
     for(let i = 0; i < words.length; i++) {
         let rdm = Math.random() * 100;
@@ -65,57 +80,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let retries = 0;
     for(let i = 0; i < words.length; i++) {
-        if(retries > 128) {
+        if(retries > 12800) {
             words[i] = null;
+            wordIndexes[i] = [];
             retries = 0;
             continue;
         }
-        let indexes = [];
-        let startIndex = parseInt(Math.random() * 100);
-        if(startIndex + words[i].length >= 100) {
+        let result;
+        let rdm = Math.random() * 100;
+        if(rdm < 50) {
+            result = createHorizontal(i);
+        } else {
+            result = createVertical(i);
+        }
+        if(!result) {
             i--;
             retries++;
             continue;
         }
-        if(startIndex < 10) {
-            if(startIndex + words[i].length > 10) {
-                i--;
-                continue;
-            }
-        }
-        if(startIndex + words[i].length >= parseInt((parseInt((startIndex + "").charAt(0)) + 1) + "0")) {
-            i--;
-            retries++;
-            continue;
-        }
-        for(let j = 0; j < words[i].length; j++) {
-            indexes[indexes.length] = startIndex + j;
-        }
-        let conflict = false;
-        for(let j = 0; j < wordIndexes.length; j++) {
-            for(let k = 0; k < indexes.length; k++) {
-                if(wordIndexes[j].includes(indexes[k])) {
-                    conflict = true;
-                    break;
-                }
-            }
-            if(conflict) {
-                break;
-            }
-        }
-        if(conflict) {
-            i--;
-            retries++;
-            continue;
-        }
-        if(reversed[i]) {
-            indexes.reverse();
-        }
-        for(let j = 0; j < indexes.length; j++) {
-            createLetter(indexes[j], words[i].charAt(j));
-        }
-        console.log(indexes);
-        wordIndexes[i] = indexes;
     }
 
     for(let i = 0; i < words.length; i++) {
@@ -129,6 +111,91 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+function createHorizontal(i) {
+    let indexes = [];
+    let startIndex = parseInt(Math.random() * 100);
+    if(startIndex + words[i].length >= 100) {
+        return false;
+    }
+    if(startIndex < 10) {
+        if(startIndex + words[i].length > 10) {
+            return false;
+        }
+    }
+    if(startIndex + words[i].length >= parseInt((parseInt((startIndex + "").charAt(0)) + 1) + "0")) {
+        return false;
+    }
+    for(let j = 0; j < words[i].length; j++) {
+        indexes[indexes.length] = startIndex + j;
+    }
+    let conflict = false;
+    for(let j = 0; j < wordIndexes.length; j++) {
+        for(let k = 0; k < indexes.length; k++) {
+            if(wordIndexes[j].includes(indexes[k])) {
+                if(letters[wordIndexes[j][wordIndexes[j].indexOf(indexes[k])]] != words[i].charAt(k).toUpperCase()) {
+                    conflict = true;
+                    break;
+                }
+            }
+        }
+        if(conflict) {
+            break;
+        }
+    }
+    if(conflict) {
+        return false;
+    }
+    if(reversed[i]) {
+        indexes.reverse();
+    }
+    for(let j = 0; j < indexes.length; j++) {
+        createLetter(indexes[j], words[i].charAt(j));
+    }
+    wordIndexes[i] = indexes;
+    return true;
+} 
+
+function createVertical(i) {
+    let indexes = [];
+    let startIndex = parseInt(Math.random() * 100);
+    if(startIndex + words[i].length * 10 >= 100) {
+        return false;
+    }
+    indexes[0] = startIndex;
+    for(let j = 1; j < words[i].length; j++) {
+        indexes[indexes.length] = indexes[indexes.length - 1] + 10;
+    }
+    let conflict = false;
+    for(let j = 0; j < wordIndexes.length; j++) {
+        for(let k = 0; k < indexes.length; k++) {
+            if(wordIndexes[j].includes(indexes[k])) {
+                if(letters[wordIndexes[j][wordIndexes[j].indexOf(indexes[k])]] != words[i].charAt(k).toUpperCase()) {
+                    conflict = true;
+                    break;
+                }
+            }
+        }
+        if(conflict) {
+            break;
+        }
+    }
+    if(conflict) {
+        return false;
+    }
+    if(reversed[i]) {
+        indexes.reverse();
+    }
+    for(let j = 0; j < indexes.length; j++) {
+        createLetter(indexes[j], words[i].charAt(j));
+    }
+    wordIndexes[i] = indexes;
+    return true;
+}
+
+function parseCreation(indexes) {
+    
+}
 
 function createLetter(index, letter) {
     letter = letter.toUpperCase();

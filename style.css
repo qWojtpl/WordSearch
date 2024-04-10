@@ -80,3 +80,43 @@ body {
     text-decoration-color: black;
     text-decoration-thickness: 3;
 }
+
+#end {
+    display: none;
+    position: absolute;
+    left: 48vw;
+    top: 35vw;
+    width: 52vw;
+    text-align: center;
+    flex-direction: column;
+    color: white;
+    font-size: 2vw;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+#end button {
+    top: 3vw;
+    position: absolute;
+    width: 16vw;
+    height: 4vw;
+    margin-left: 18vw;
+    margin-top: 1vw;
+    padding: 1vw;
+    border: 0.1vw solid rgb(62, 161, 62);
+    outline: none;
+    border-radius: 0.3vw;
+    font-size: 1.1vw;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .5s;
+    background-color: rgb(83, 216, 83);
+    color: white;
+}
+
+#end button:hover {
+    width: 18vw;
+    height: 4.5vw;
+    margin-left: 17vw;
+}
