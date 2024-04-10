@@ -1,3 +1,14 @@
 {
-    "title": "WordSearch"
+    "title": "WordSearch",
+    "packages": [
+        {
+            "id": 0,
+            "name": "Furniture",
+            "words": [
+                "Couch",
+                "Armchair",
+                "Table"
+            ]
+        }
+    ]
 }

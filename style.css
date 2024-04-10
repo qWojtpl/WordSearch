@@ -46,8 +46,37 @@ body {
     height: 42.75vw;
     top: 0.5vw;
     left: 1.5vw;
-    background-color: rgba(255, 0, 0, 0.3);
     border-radius: 1vw;
     transform-origin: 2.25vw 2.25vw;
     pointer-events: none;
+}
+
+#text {
+    position: absolute;
+    left: 48vw;
+    width: 52vw;
+    text-align: center;
+    color: white;
+    font-size: 1.75vw;
+    font-weight: 900;
+}
+
+#available-words {
+    position: absolute;
+    left: 51vw;
+    width: 49vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 1.5vw;
+    font-weight: 600;
+    color: white;
+    gap: 5vw;
+    flex-wrap: wrap;
+    top: 10vw;
+}
+
+#available-words span {
+    text-decoration-color: black;
+    text-decoration-thickness: 3;
 }

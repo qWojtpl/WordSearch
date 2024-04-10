@@ -1,3 +1,14 @@
 {
-    "title": "Szukanie słów"
+    "title": "Szukanie słów",
+    "packages": [
+        {
+            "id": 0,
+            "name": "Meble",
+            "words": [
+                "Kanapa",
+                "Fotel",
+                "Stolik"
+            ]
+        }
+    ]
 }
