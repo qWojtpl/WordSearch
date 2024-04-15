@@ -2,6 +2,7 @@
     "title": "WordSearch",
     "congratulations": "Congratulations!",
     "restart": "Restart",
+    "category": "Category: ",
     "packages": [
         {
             "id": 0,

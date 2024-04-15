@@ -2,14 +2,21 @@
     "title": "Szukanie słów",
     "congratulations": "Gratulacje!",
     "restart": "Zacznij ponownie",
+    "category": "Kategoria: ",
     "packages": [
         {
-            "id": 0,
             "name": "Meble",
             "words": [
                 "Kanapa",
                 "Fotel",
                 "Stolik"
+            ]
+        },
+        {
+            "name": "Zwierzęta",
+            "words": [
+                "Bekas",
+                "Koczkodan"
             ]
         }
     ]

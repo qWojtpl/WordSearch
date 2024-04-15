@@ -1,6 +1,9 @@
 
 export class LangManager {
 
+    words = [];
+    category = "";
+
     load() {
         this.sendLangRequest("pl");
     }
@@ -22,7 +25,17 @@ export class LangManager {
             let element = elements[i];
             element.innerHTML = json[element.getAttribute("ref")];
         }
+        let index = parseInt(Math.random() * json["packages"].length);
+        this.words = json["packages"][index]["words"];
+        this.category = json["packages"][index]["name"];
     }
 
+    getWords() {    
+        return this.words;
+    }
+
+    getCategory() {
+        return this.category;
+    }
 
 }

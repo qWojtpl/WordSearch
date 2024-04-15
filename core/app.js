@@ -1,7 +1,7 @@
 import { LangManager } from "./lang-manager.js";
 
 const letters = [];
-const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "W", "Y", "Z"];
+const alphabet = ["A", "Ą", "B", "C", "Ć", "D", "E", "Ę", "F", "G", "H", "I", "J", "K", "L", "Ł", "M", "N", "Ń", "O", "Ó", "P", "R", "S", "Ś", "T", "U", "W", "Y", "Z", "Ź", "Ż"];
 const selectionColors = ["rgba(255, 0, 0, 0.3)", "rgba(0, 255, 0, 0.3)", "rgba(0, 0, 255, 0.3)", "rgba(255, 255, 0, 0.3)", "rgba(255, 0, 255, 0.3)", "rgba(0, 255, 255, 0.3)"];
 const board = document.getElementById("board");
 const selections = document.getElementById("selections");
@@ -59,56 +59,68 @@ document.addEventListener("mouseup", () => {
 document.addEventListener("DOMContentLoaded", () => {
     let langManager = new LangManager();
     langManager.load();
-    for(let i = 0; i < 100; i++) {
-        createLetter(i, alphabet[parseInt(Math.random() * alphabet.length)]);
-    }
 
-    document.getElementById("end").children[1].addEventListener("click", () => {
-        window.location.href = "./";
-    });
-
-    words = ["Fotel", "Falafel", "Test", "Tama", "Bober", "Polska", "Diabel", "Drzwi", "Cyfra", "Litera", "Bekas", "Ksiazka", "Domek", "Samochod", "Brbr", "Bomba"];
+    //words = ["Fotel", "Falafel", "Test", "Tama", "Bober", "Polska", "Diabel", "Drzwi", "Cyfra", "Litera", "Bekas", "Ksiazka", "Domek", "Samochod", "Brbr", "Bomba"];
     
-    for(let i = 0; i < words.length; i++) {
-        let rdm = Math.random() * 100;
-        if(rdm < 25) {
-            reversed[i] = true;
-            continue;
+    let i = setInterval(() => {
+        if(langManager.getWords().length == 0) {
+            return;
+        } 
+        for(let i = 0; i < 100; i++) {
+            createLetter(i, alphabet[parseInt(Math.random() * alphabet.length)]);
         }
-        reversed[i] = false;
-    }
+    
+        document.getElementById("end").children[1].addEventListener("click", () => {
+            window.location.href = "./";
+        });
 
-    let retries = 0;
-    for(let i = 0; i < words.length; i++) {
-        if(retries > 12800) {
-            words[i] = null;
-            wordIndexes[i] = [];
-            retries = 0;
-            continue;
-        }
-        let result;
-        let rdm = Math.random() * 100;
-        if(rdm < 50) {
-            result = createHorizontal(i);
-        } else {
-            result = createVertical(i);
-        }
-        if(!result) {
-            i--;
-            retries++;
-            continue;
-        }
-    }
+        document.getElementById("category").innerHTML += langManager.getCategory();
 
-    for(let i = 0; i < words.length; i++) {
-        if(words[i] == null) {
-            continue;
+        words = langManager.getWords();
+        words = words.sort((a, b) => 0.5 - Math.random());
+
+        for(let i = 0; i < words.length; i++) {
+            let rdm = Math.random() * 100;
+            if(rdm < 25) {
+                reversed[i] = true;
+                continue;
+            }
+            reversed[i] = false;
         }
-        let newElement = document.createElement("div");
-        newElement.innerHTML = "<span>" + words[i] + "</span>";
-        document.getElementById("available-words").appendChild(newElement);
-        wordObjects[i] = newElement;
-    }
+    
+        let retries = 0;
+        for(let i = 0; i < words.length; i++) {
+            if(retries > 12800) {
+                words[i] = null;
+                wordIndexes[i] = [];
+                retries = 0;
+                continue;
+            }
+            let result;
+            let rdm = Math.random() * 100;
+            if(rdm < 50) {
+                result = createHorizontal(i);
+            } else {
+                result = createVertical(i);
+            }
+            if(!result) {
+                i--;
+                retries++;
+                continue;
+            }
+        }
+    
+        for(let i = 0; i < words.length; i++) {
+            if(words[i] == null) {
+                continue;
+            }
+            let newElement = document.createElement("div");
+            newElement.innerHTML = "<span>" + words[i] + "</span>";
+            document.getElementById("available-words").appendChild(newElement);
+            wordObjects[i] = newElement;
+        }
+        clearInterval(i);
+    }, 100);
 
 });
 
@@ -123,7 +135,7 @@ function createHorizontal(i) {
             return false;
         }
     }
-    if(startIndex + words[i].length >= parseInt((parseInt((startIndex + "").charAt(0)) + 1) + "0")) {
+    if(startIndex + words[i].length > parseInt((parseInt((startIndex + "").charAt(0)) + 1) + "0")) {
         return false;
     }
     for(let j = 0; j < words[i].length; j++) {
