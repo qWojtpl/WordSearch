@@ -2,7 +2,7 @@ import { LangManager } from "./lang-manager.js";
 
 const letters = [];
 const alphabet = ["A", "Ą", "B", "C", "Ć", "D", "E", "Ę", "F", "G", "H", "I", "J", "K", "L", "Ł", "M", "N", "Ń", "O", "Ó", "P", "R", "S", "Ś", "T", "U", "W", "Y", "Z", "Ź", "Ż"];
-const selectionColors = ["rgba(255, 0, 0, 0.3)", "rgba(0, 255, 0, 0.3)", "rgba(0, 0, 255, 0.3)", "rgba(255, 255, 0, 0.3)", "rgba(255, 0, 255, 0.3)", "rgba(0, 255, 255, 0.3)"];
+const selectionColors = ["rgba(255, 0, 0, 0.3)", "rgba(0, 255, 0, 0.3)", "rgba(0, 0, 255, 0.3)", "rgba(255, 255, 0, 0.3)", "rgba(255, 0, 255, 0.3)", "rgba(0, 255, 255, 0.3)", "rgba(157, 49, 196, 0.3)", "rgba(255, 175, 0, 0.3)", "rgba(245, 86, 232, 0.3)"];
 const board = document.getElementById("board");
 const selections = document.getElementById("selections");
 const wordIndexes = [];
@@ -60,8 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let langManager = new LangManager();
     langManager.load();
 
-    //words = ["Fotel", "Falafel", "Test", "Tama", "Bober", "Polska", "Diabel", "Drzwi", "Cyfra", "Litera", "Bekas", "Ksiazka", "Domek", "Samochod", "Brbr", "Bomba"];
-    
     let i = setInterval(() => {
         if(langManager.getWords().length == 0) {
             return;
@@ -141,6 +139,9 @@ function createHorizontal(i) {
     for(let j = 0; j < words[i].length; j++) {
         indexes[indexes.length] = startIndex + j;
     }
+    if(reversed[i]) {
+        indexes.reverse();
+    }
     let conflict = false;
     for(let j = 0; j < wordIndexes.length; j++) {
         for(let k = 0; k < indexes.length; k++) {
@@ -157,9 +158,6 @@ function createHorizontal(i) {
     }
     if(conflict) {
         return false;
-    }
-    if(reversed[i]) {
-        indexes.reverse();
     }
     for(let j = 0; j < indexes.length; j++) {
         createLetter(indexes[j], words[i].charAt(j));
@@ -178,6 +176,9 @@ function createVertical(i) {
     for(let j = 1; j < words[i].length; j++) {
         indexes[indexes.length] = indexes[indexes.length - 1] + 10;
     }
+    if(reversed[i]) {
+        indexes.reverse();
+    }
     let conflict = false;
     for(let j = 0; j < wordIndexes.length; j++) {
         for(let k = 0; k < indexes.length; k++) {
@@ -194,9 +195,6 @@ function createVertical(i) {
     }
     if(conflict) {
         return false;
-    }
-    if(reversed[i]) {
-        indexes.reverse();
     }
     for(let j = 0; j < indexes.length; j++) {
         createLetter(indexes[j], words[i].charAt(j));

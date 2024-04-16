@@ -76,14 +76,14 @@ body {
 #available-words {
     position: absolute;
     left: 51vw;
-    width: 49vw;
+    width: 48vw;
     display: flex;
     justify-content: start;
     align-items: center;
     font-size: 1.5vw;
     font-weight: 600;
     color: white;
-    gap: 5vw;
+    gap: 6vw;
     flex-wrap: wrap;
     top: 10vw;
 }

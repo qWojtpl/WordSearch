@@ -7,16 +7,92 @@
         {
             "name": "Meble",
             "words": [
-                "Kanapa",
-                "Fotel",
-                "Stolik"
+                "Krzesło",
+                "Stół",
+                "Szafa",
+                "Łóżko",
+                "Półka",
+                "Szuflada",
+                "Komoda",
+                "Biurko",
+                "Regał",
+                "Kanapa"
             ]
         },
         {
             "name": "Zwierzęta",
             "words": [
-                "Bekas",
-                "Koczkodan"
+                "Kot",
+                "Pies",
+                "Małpa",
+                "Jaszczurka",
+                "Chomik",
+                "Szynszyl",
+                "Orzeł",
+                "Żaba",
+                "Myszka",
+                "Kangur",
+                "Tygrys",
+                "Lew",
+                "Słoń",
+                "Żyrafa",
+                "Lemur",
+                "Pająk",
+                "Wąż",
+                "Sowa",
+                "Bocian",
+                "Zebra"
+            ]
+        },
+        {
+            "name": "Przedmioty szkolne",
+            "words": [
+                "Polski",
+                "Matematyka",
+                "Angielski",
+                "Niemiecki",
+                "Historia",
+                "WF",
+                "WDŻ",
+                "Plastyka",
+                "Muzyka",
+                "Geografia",
+                "Fizyka",
+                "Biologia",
+                "Chemia",
+                "WOS",
+                "Religia",
+                "Przyroda"
+            ]
+        },
+        {
+            "name": "Części komputera",
+            "words": [
+                "Obudowa",
+                "Monitor",
+                "Klawiatura",
+                "Mysz",
+                "Głośniki",
+                "Drukarka",
+                "Słuchawki",
+                "Mikrofon",
+                "Procesor",
+                "Pamięć",
+                "Dysk",
+                "Grafika"
+            ]
+        },
+        {
+            "name": "Natura",
+            "words": [
+                "Drzewo",
+                "Liść",
+                "Gałązka",
+                "Korzeń",
+                "Kora",
+                "Kwiat",
+                "Łodyga",
+                "Nasiono"
             ]
         }
     ]
